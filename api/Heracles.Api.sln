@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3A9877EB-A375-4E54-A4E3-71AF5CAAE7CA}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{755C7A2B-607D-4202-86FF-5F32988EB0CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heracles.Api.Core", "src\Heracles.Api.Core\Heracles.Api.Core.csproj", "{81BA7140-A807-4E56-9297-1C7D367F5996}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heracles.Api.Infrastructure", "src\Heracles.Api.Infrastructure\Heracles.Api.Infrastructure.csproj", "{1F990F11-37CB-4FF4-9512-47C881866F3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heracles.Api.Web", "src\Heracles.Api.Web\Heracles.Api.Web.csproj", "{F0167E3D-13EB-4FC0-9144-905A4AAC2884}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{203BC641-07B4-4ECC-ADAB-C9870914909C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heracles.Api.IntegrationTests", "tests\Heracles.Api.IntegrationTests\Heracles.Api.IntegrationTests.csproj", "{927DE495-03B9-4E98-B2C2-F3AEFA05A613}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81BA7140-A807-4E56-9297-1C7D367F5996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81BA7140-A807-4E56-9297-1C7D367F5996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81BA7140-A807-4E56-9297-1C7D367F5996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81BA7140-A807-4E56-9297-1C7D367F5996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F990F11-37CB-4FF4-9512-47C881866F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F990F11-37CB-4FF4-9512-47C881866F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F990F11-37CB-4FF4-9512-47C881866F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F990F11-37CB-4FF4-9512-47C881866F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0167E3D-13EB-4FC0-9144-905A4AAC2884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0167E3D-13EB-4FC0-9144-905A4AAC2884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0167E3D-13EB-4FC0-9144-905A4AAC2884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0167E3D-13EB-4FC0-9144-905A4AAC2884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{927DE495-03B9-4E98-B2C2-F3AEFA05A613}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{927DE495-03B9-4E98-B2C2-F3AEFA05A613}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{927DE495-03B9-4E98-B2C2-F3AEFA05A613}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{927DE495-03B9-4E98-B2C2-F3AEFA05A613}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{81BA7140-A807-4E56-9297-1C7D367F5996} = {755C7A2B-607D-4202-86FF-5F32988EB0CB}
+		{1F990F11-37CB-4FF4-9512-47C881866F3C} = {755C7A2B-607D-4202-86FF-5F32988EB0CB}
+		{F0167E3D-13EB-4FC0-9144-905A4AAC2884} = {755C7A2B-607D-4202-86FF-5F32988EB0CB}
+		{927DE495-03B9-4E98-B2C2-F3AEFA05A613} = {203BC641-07B4-4ECC-ADAB-C9870914909C}
+	EndGlobalSection
+EndGlobal

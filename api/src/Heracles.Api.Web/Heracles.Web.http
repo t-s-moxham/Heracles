@@ -1,0 +1,51 @@
+@HostAddress = http://localhost:5168
+
+###
+# @name Register
+
+POST {{HostAddress}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "developer@example.com",
+  "password": "developer password"
+}
+
+###
+# @name Login
+
+POST {{HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "developer@example.com",
+  "password": "developer password"
+}
+
+> {%
+  client.global.set("AuthToken", response.body.accessToken)
+%}
+
+###
+# @name GetExercise
+@ExerciseId = 01960624-3792-7368-941b-f0a43ee2497d
+
+GET {{HostAddress}}/exercise/{{ExerciseId}}
+Authorization: Bearer {{AuthToken}}
+
+###
+
+POST {{HostAddress}}/exercise
+Authorization: Bearer {{AuthToken}}
+Content-Type: application/json
+
+{
+  "Name": "Bench Press",
+  "Category": "Barbell"
+}
+
+###
+# @name GetAllExercises
+
+GET {{HostAddress}}/exercise
+Authorization: Bearer {{AuthToken}}
