@@ -102,13 +102,13 @@ public class ExerciseController(
         exercise.BodyPart = exerciseUpdate.BodyPart ?? exercise.BodyPart;
 
         var alternateKeyUnchanged =
-            (exerciseUpdate.Name != null || exercise.Name == exerciseUpdate.Name)
-            && (exerciseUpdate.Category != null || exercise.Category == exerciseUpdate.Category);
+            (exerciseUpdate.Name == null || exercise.Name == exerciseUpdate.Name)
+            && (exerciseUpdate.Category == null || exercise.Category == exerciseUpdate.Category);
 
         if (alternateKeyUnchanged)
         {
             await dbContext.SaveChangesAsync();
-            return Ok();
+            return Ok(ExerciseDtoFactory.Create(exercise));
         }
 
         // update alternate key fields
@@ -128,7 +128,7 @@ public class ExerciseController(
         }
 
         await dbContext.SaveChangesAsync();
-        return Ok();
+        return Ok(ExerciseDtoFactory.Create(exercise));
     }
 
     [HttpDelete("{id:guid}")]
@@ -151,6 +151,8 @@ public class ExerciseController(
         {
             return Forbid();
         }
+
+        // TODO complete implementation
 
         return NoContent();
     }

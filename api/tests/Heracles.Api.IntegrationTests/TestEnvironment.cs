@@ -1,29 +1,51 @@
 ﻿using System.Net.Http.Headers;
+using Bogus;
 using Heracles.Infrastructure;
 using Heracles.Web;
 using Microsoft.EntityFrameworkCore;
 
-namespace Heracles.IntegrationTests;
-
+// ReSharper disable PropertyCanBeMadeInitOnly.Local
 // ReSharper disable InconsistentNaming
+
+namespace Heracles.IntegrationTests;
 
 public class TestEnvironment : IAsyncLifetime
 {
     public readonly HttpClient AnonymousClient;
     public readonly HttpClient AuthenticatedClient;
 
-    private record LoginRequest(string email, string password);
+    private class AuthRequest
+    {
+        public required string Email { get; set; }
+        public required string Password { get; set; }
+    }
 
     private record LoginResponse(string accessToken);
 
     private readonly CustomWebApplicationFactory<Program> Factory = new();
 
-    private async Task<string> GetBearerToken()
+    public AppDbContext DbContext { get; private set; }
+
+    public async Task<HttpClient> GenerateFakeUserClient()
     {
-        var response = await AnonymousClient.PostAsJsonAsync(
-            "/auth/login",
-            new LoginRequest(TestConstants.Email, TestConstants.Password)
-        );
+        var fakeUser = new Faker<AuthRequest>()
+            .RuleFor(x => x.Email, f => f.Person.Email)
+            .RuleFor(x => x.Password, f => f.Random.AlphaNumeric(14));
+
+        var request = fakeUser.Generate();
+
+        await AnonymousClient.PostAsJsonAsync("/auth/register", request);
+
+        var client = Factory.CreateClient();
+
+        await AuthenticateClient(client, request);
+
+        return client;
+    }
+
+    private async Task<string> GetBearerToken(AuthRequest request)
+    {
+        var response = await AnonymousClient.PostAsJsonAsync("/auth/login", request);
 
         response.EnsureSuccessStatusCode();
 
@@ -36,13 +58,23 @@ public class TestEnvironment : IAsyncLifetime
     {
         AnonymousClient = Factory.CreateClient();
         AuthenticatedClient = Factory.CreateClient();
+
+        DbContext = Factory.Services.GetRequiredService<AppDbContext>();
+    }
+
+    private async Task AuthenticateClient(HttpClient client, AuthRequest request)
+    {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            "Bearer",
+            await GetBearerToken(request)
+        );
     }
 
     public async Task InitializeAsync()
     {
-        AuthenticatedClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-            "Bearer",
-            await GetBearerToken()
+        await AuthenticateClient(
+            AuthenticatedClient,
+            new AuthRequest() { Email = TestConstants.Email, Password = TestConstants.Password }
         );
     }
 
