@@ -152,7 +152,13 @@ public class ExerciseController(
             return Forbid();
         }
 
-        // TODO complete implementation
+        if (!await exerciseService.CanDelete(exercise.Id))
+        {
+            return BadRequest("Cannot delete exercise with associated entities.");
+        }
+
+        dbContext.Exercises.Remove(exercise);
+        await dbContext.SaveChangesAsync();
 
         return NoContent();
     }
